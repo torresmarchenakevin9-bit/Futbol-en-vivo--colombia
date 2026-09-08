@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>⚽ Fútbol En Vivo Colombia</title>
+<meta name="description" content="Partidos de fútbol en vivo, resultados y próximos encuentros.">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#07111f;color:white}
+header{background:linear-gradient(135deg,#06204a,#087344);padding:30px 15px;text-align:center}
+.logo{font-size:28px;font-weight:bold}
+.sub{margin-top:8px;color:#d5e8df}
+nav{display:flex;gap:8px;overflow:auto;padding:12px;background:#101c2d;justify-content:center}
+nav a{color:white;text-decoration:none;padding:10px 14px;border-radius:20px;background:#1a2a42}
+main{max-width:900px;margin:auto;padding:18px}
+h2{margin-top:28px}
+.card{background:#111e31;border:1px solid #253650;border-radius:16px;margin:14px 0;padding:18px}
+.league{color:#9fb3cc;font-size:13px;margin-bottom:12px}
+.teams{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.team{text-align:center;flex:1;font-weight:bold}
+.score{font-size:28px;font-weight:bold;min-width:70px;text-align:center}
+.status{font-size:13px;color:#65e6ad;margin-top:5px}
+.live{display:inline-block;background:#e63946;padding:6px 10px;border-radius:20px;font-size:13px;font-weight:bold}
+.btn{display:inline-block;background:#20b26b;color:white;text-decoration:none;padding:12px 18px;border-radius:10px;font-weight:bold;margin-top:12px}
+.notice{background:#17243a;padding:15px;border-radius:12px;color:#cbd6e5;line-height:1.5}
+footer{text-align:center;padding:30px;color:#8292a8;font-size:13px}
+@media(max-width:600px){
+.logo{font-size:23px}
+.teams{gap:4px}
+.team{font-size:14px}
+.score{font-size:24px;min-width:55px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">⚽ FÚTBOL EN VIVO COLOMBIA</div>
+<div class="sub">Marcadores, partidos y resultados en un solo lugar</div>
+</header>
+
+<nav>
+<a href="#vivo">🔴 En vivo</a>
+<a href="#hoy">📅 Hoy</a>
+<a href="#proximos">⏰ Próximos</a>
+<a href="#ligas">🏆 Ligas</a>
+</nav>
+
+<main>
+
+<section id="vivo">
+<h2>🔴 Partidos en vivo</h2>
+
+<div class="card">
+<div class="league">PARTIDO DESTACADO</div>
+
+<div class="teams">
+<div class="team">Real Madrid</div>
+
+<div class="score">
+-
+<div class="status">Próximamente</div>
+</div>
+
+<div class="team">Próximo rival</div>
+</div>
+
+<a class="btn" href="#proximos">Ver partidos</a>
+</div>
+</section>
+
+<section id="hoy">
+<h2>📅 Partidos de hoy</h2>
+
+<div class="card">
+<div class="league">RESULTADOS EN TIEMPO REAL</div>
+<p>Los marcadores aparecerán aquí cuando conectemos los resultados en vivo.</p>
+</div>
+</section>
+
+<section id="proximos">
+<h2>⏰ Próximos partidos</h2>
+
+<div class="card">
+<div class="league">CHAMPIONS / EUROPA</div>
+<div class="teams">
+<div class="team">Equipo local</div>
+<div class="score">VS</div>
+<div class="team">Equipo visitante</div>
+</div>
+</div>
+
+<div class="card">
+<div class="league">FÚTBOL INTERNACIONAL</div>
+<div class="teams">
+<div class="team">Equipo local</div>
+<div class="score">VS</div>
+<div class="team">Equipo visitante</div>
+</div>
+</div>
+</section>
+
+<section id="ligas">
+<h2>🏆 Competencias</h2>
+
+<div class="card">
+🇪🇸 LaLiga &nbsp; 🇬🇧 Premier League &nbsp; 🇮🇹 Serie A
+</div>
+
+<div class="card">
+🇩🇪 Bundesliga &nbsp; 🇫🇷 Ligue 1 &nbsp; 🇨🇴 Liga BetPlay
+</div>
+</section>
+
+<div class="notice">
+<strong>⚽ Fútbol En Vivo Colombia</strong><br>
+Resultados, partidos y estadísticas de fútbol.
+<br><br>
+La transmisión de video de partidos requiere los derechos correspondientes.
+</div>
+
+</main>
+
+<footer>
+Fútbol En Vivo Colombia · Proyecto inicial
+</footer>
+
+</body>
+  </html>
