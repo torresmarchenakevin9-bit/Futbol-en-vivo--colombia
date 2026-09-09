@@ -202,6 +202,8 @@ partidos.forEach(function(partido){
 
 const local = partido.teams.home.name;
 const visitante = partido.teams.away.name;
+    const escudoLocal = partido.teams.home.logo;
+const escudoVisitante = partido.teams.away.logo;
 
 const golesLocal = partido.goals.home ?? "-";
 const golesVisitante = partido.goals.away ?? "-";
@@ -220,8 +222,11 @@ contenedor.innerHTML += `
 <div class="equipos">
 
 <div class="equipo">
+<img src="${escudoLocal}" width="45">
+<br>
 ${local}
 </div>
+
 
 <div>
 <div class="marcador">
@@ -231,9 +236,9 @@ ${golesLocal} - ${golesVisitante}
 <div class="estado">
 ${estado}
 </div>
-</div>
-
-<div class="equipo">
+</div> <div class="equipo">
+<img src="${escudoVisitante}" width="45">
+<br>
 ${visitante}
 </div>
 
