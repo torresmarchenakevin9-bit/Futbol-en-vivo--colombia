@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fútbol En Vivo Colombia</title>
+<title>⚽ Fútbol En Vivo Colombia</title>
 
 <style>
 body{
@@ -22,6 +22,7 @@ header{
 
 h1{
     margin:0;
+    font-size:25px;
 }
 
 nav{
@@ -30,15 +31,17 @@ nav{
     gap:8px;
     padding:15px;
     background:#101a2b;
+    flex-wrap:wrap;
 }
 
 button{
     border:0;
-    padding:12px 15px;
+    padding:11px 15px;
     border-radius:20px;
     background:#1d2b43;
     color:white;
     font-weight:bold;
+    cursor:pointer;
 }
 
 main{
@@ -51,13 +54,15 @@ main{
     background:#121d30;
     border:1px solid #263752;
     border-radius:15px;
-    padding:16px;
+    padding:18px;
     margin:12px 0;
 }
 
 .liga{
     color:#9fb3cc;
-    margin-bottom:12px;
+    font-size:13px;
+    margin-bottom:15px;
+    text-align:center;
 }
 
 .equipos{
@@ -73,6 +78,14 @@ main{
     font-weight:bold;
 }
 
+.escudo{
+    width:50px;
+    height:50px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 8px;
+}
+
 .marcador{
     font-size:25px;
     font-weight:bold;
@@ -83,11 +96,23 @@ main{
     text-align:center;
     color:#65e6ad;
     font-size:13px;
-    margin-top:5px;
+    margin-top:6px;
+}
+
+.estadisticas{
+    display:block;
+    margin:18px auto 0;
+    background:#087443;
 }
 
 .error{
     color:#ff8080;
+    text-align:center;
+}
+
+.cargando{
+    text-align:center;
+    padding:25px;
 }
 </style>
 </head>
@@ -109,7 +134,7 @@ main{
 
 <h2 id="titulo">🔴 Partidos en vivo</h2>
 
-<div id="partidos">
+<div id="partidos" class="cargando">
 ⏳ Cargando partidos...
 </div>
 
@@ -117,6 +142,7 @@ main{
 
 <script>
 
+// 🔑 PON TU CLAVE REAL ENTRE LAS COMILLAS
 const API_KEY = "c7f984ec88b247dd76658268c1782bbc";
 
 const API_URL = "https://v3.football.api-sports.io";
@@ -125,7 +151,8 @@ async function consultar(url){
 
 const contenedor = document.getElementById("partidos");
 
-contenedor.innerHTML = "⏳ Consultando partidos...";
+contenedor.innerHTML =
+'<div class="cargando">⏳ Cargando partidos...</div>';
 
 try{
 
@@ -148,7 +175,7 @@ clearTimeout(tiempo);
 if(!respuesta.ok){
 
 contenedor.innerHTML =
-'<div class="card error">❌ Error HTTP: '+respuesta.status+'</div>';
+'<div class="card error">❌ Error de conexión: '+respuesta.status+'</div>';
 
 return;
 }
@@ -158,146 +185,4 @@ const datos = await respuesta.json();
 if(datos.errors && Object.keys(datos.errors).length > 0){
 
 contenedor.innerHTML =
-'<div class="card error">❌ La API respondió con un error. Revisa que tu clave esté activa.</div>';
-
-return;
-}
-
-mostrarPartidos(datos.response || []);
-
-}catch(error){
-
-if(error.name === "AbortError"){
-
-contenedor.innerHTML =
-'<div class="card error">❌ La API tardó demasiado en responder.</div>';
-
-}else{
-
-contenedor.innerHTML =
-'<div class="card error">❌ No se pudo conectar con la API.</div>';
-
-}
-
-}
-
-}
-
-function mostrarPartidos(partidos){
-
-const contenedor = document.getElementById("partidos");
-
-if(partidos.length === 0){
-
-contenedor.innerHTML =
-'<div class="card">⚽ No hay partidos disponibles.</div>';
-
-return;
-
-}
-
-contenedor.innerHTML = "";
-
-partidos.forEach(function(partido){
-
-const local = partido.teams.home.name;
-const visitante = partido.teams.away.name;
-    const escudoLocal = partido.teams.home.logo;
-const escudoVisitante = partido.teams.away.logo;
-
-const golesLocal = partido.goals.home ?? "-";
-const golesVisitante = partido.goals.away ?? "-";
-
-const liga = partido.league.name;
-const estado = partido.fixture.status.long;
-
-contenedor.innerHTML += `
-
-<div class="card">
-
-<div class="liga">
-🏆 ${liga}
-</div>
-
-<div class="equipos">
-
-<div class="equipo">
-<img src="${escudoLocal}" width="45">
-<br>
-${local}
-</div>
-
-
-<div>
-<div class="marcador">
-${golesLocal} - ${golesVisitante}
-</div>
-
-<div class="estado">
-${estado}
-</div>
-</div> <div class="equipo">
-<img src="${escudoVisitante}" width="45">
-<br>
-${visitante}
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-function cargarEnVivo(){
-
-document.getElementById("titulo").innerText =
-"🔴 Partidos en vivo";
-
-consultar("/fixtures?live=all");
-
-}
-
-function cargarHoy(){
-
-document.getElementById("titulo").innerText =
-"📅 Partidos de hoy";
-
-const fecha = new Date().toLocaleDateString("en-CA",{
-timeZone:"America/Bogota"
-});
-
-consultar(
-"/fixtures?date="+fecha+"&timezone=America/Bogota"
-);
-
-}
-
-function cargarManana(){
-
-document.getElementById("titulo").innerText =
-"📅 Partidos de mañana";
-
-const ahora = new Date();
-
-ahora.setDate(ahora.getDate()+1);
-
-const fecha = ahora.toLocaleDateString("en-CA",{
-timeZone:"America/Bogota"
-});
-
-consultar(
-"/fixtures?date="+fecha+"&timezone=America/Bogota"
-);
-
-}
-
-cargarEnVivo();
-
-</script>
-
-</body>
-</html>
+'<div class="card error">❌ Error de la API.
